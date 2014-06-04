@@ -53,7 +53,7 @@ class ViewController: UITableViewController, UITableViewDataSource {
     }
     
     func addItem(text: String) {
-        rows.append(text)
+        rows += text
     }
     
 }
