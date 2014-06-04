@@ -50,17 +50,13 @@ class ViewController: UITableViewController, UITableViewDataSource {
         
         let addAction = UIAlertAction(title: "Add", style: .Default) {
             (action) in
-            self.addItem(addItemAlert.textFields[0].text)
+            self.rows += addItemAlert.textFields[0].text
         }
         
         addItemAlert.addAction(cancelAction)
         addItemAlert.addAction(addAction)
         
         presentViewController(addItemAlert, animated: true, completion: nil)
-    }
-    
-    func addItem(text: String) {
-        rows += text
     }
     
 }
