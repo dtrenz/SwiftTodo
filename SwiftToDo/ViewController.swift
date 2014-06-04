@@ -33,7 +33,7 @@ class ViewController: UITableViewController, UITableViewDataSource {
     }
     
     override func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
-        if (editingStyle == UITableViewCellEditingStyle.Delete) {
+        if editingStyle == UITableViewCellEditingStyle.Delete {
             rows.removeAtIndex(indexPath.row)
         }
     }
@@ -41,13 +41,20 @@ class ViewController: UITableViewController, UITableViewDataSource {
     @IBAction func didTapAddButton(sender: UIBarButtonItem) {
         let addItemAlert = UIAlertController(title: "Add Item", message: "Add a new ToDo item", preferredStyle: .Alert)
         
-        let itemAlertAction = UIAlertAction(title: "Add", style: .Default) {
-            [weak self] (action) in // do i need weak self here?
-            self!.addItem(addItemAlert.textFields[0].text)
+        addItemAlert.addTextFieldWithConfigurationHandler(nil)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Default) {
+            (action) in
+            addItemAlert.dismissViewControllerAnimated(true, completion: nil)
         }
         
-        addItemAlert.addAction(itemAlertAction)
-        addItemAlert.addTextFieldWithConfigurationHandler(nil)
+        let addAction = UIAlertAction(title: "Add", style: .Default) {
+            (action) in
+            self.addItem(addItemAlert.textFields[0].text)
+        }
+        
+        addItemAlert.addAction(cancelAction)
+        addItemAlert.addAction(addAction)
         
         presentViewController(addItemAlert, animated: true, completion: nil)
     }
